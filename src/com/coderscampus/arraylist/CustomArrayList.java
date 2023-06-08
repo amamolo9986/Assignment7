@@ -3,37 +3,36 @@ package com.coderscampus.arraylist;
 import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
+	Object[] items = new Object[10];
+	int size = 0;
 
-	private final int initialCapacity = 10;
-	private Object[] originalArray;
-	//private Object[] newArray;
-	private int size;
+	private static final int GROWTH_FACTOR = 2;
 
-	// creating our variables
-
-	public CustomArrayList() {
-		originalArray = new Object[initialCapacity];
-		size = 0;
+	private void resizeArray() {
+		items = Arrays.copyOf(items, items.length * GROWTH_FACTOR);
 	}
 
 	@Override
 	public String toString() {
-		String something = ""; // we're returning a string so we have to create a string
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < size; i++) {
-			something = something + originalArray[i] + ", "; // String = previous + current -> different syntax "something =+" (but we need to truncate) 
+			sb.append(items[i]);
+			if (i != size - 1) {
+				sb.append(", ");
+				// StringBuilder is appending each element and separating
+				// using a delimiter if the item is not the last item.
+			}
 		}
-		something = something.substring(0, something.length() - 2); // removing the last two characters -> comma and space
-		return something;
+		return sb.toString();
 	}
 
 	@Override
 	public boolean add(T item) {
-			if (size == originalArray.length) { // if the size of the array equals the initial capacity
-				originalArray = Arrays.copyOf(originalArray, originalArray.length * 2); //original the array to be copied, the length of the copy to be returned
-			}
-		originalArray[size++] = item; // adding new items and incrementing array size
+		if (size == items.length) {
+			resizeArray();
+		}
+		items[size++] = item;
 		return true;
-
 	}
 
 	@Override
@@ -43,12 +42,48 @@ public class CustomArrayList<T> implements CustomList<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T get(int index) {
+	public T get(int index) throws IndexOutOfBoundsException {
 		if (index >= size || index < 0) {
-	        throw new IndexOutOfBoundsException("Index out of bounds: " + size);
-	    }
-		
-		return (T) originalArray[index];
+			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+		}
+
+		return (T) items[index];
+	}
+
+	@Override
+	public boolean add(int index, T item) throws IndexOutOfBoundsException {
+
+		if (size == items.length) {
+			resizeArray();
+		}
+		if (index > size || index < 0) {
+			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+		}
+
+		for (int i = size - 1; i >= index; i--) {
+			items[i + 1] = items[i];
+		}
+
+		items[index] = item;
+		size++;
+		return true;
+
+	}
+
+	@Override
+	public T remove(int index) throws IndexOutOfBoundsException {
+
+		if (index < 0 || index >= getSize()) {
+			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+		}
+
+		T item = get(index);
+		for (int i = index; i < getSize() - 1; i++) {
+			items[i] = items[i + 1];
+		}
+		size--;
+		return item;
+
 	}
 
 }
