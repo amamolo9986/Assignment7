@@ -12,19 +12,20 @@ public class CustomArrayList<T> implements CustomList<T> {
 		items = Arrays.copyOf(items, items.length * GROWTH_FACTOR);
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < size; i++) {
-			sb.append(items[i]);
-			if (i != size - 1) {
-				sb.append(", ");
-				// StringBuilder is appending each element and separating
-				// using a delimiter if the item is not the last item.
-			}
-		}
-		return sb.toString();
-	}
+//	@Override
+//	public String toString() {
+//		StringBuilder sb = new StringBuilder();
+//		for (int i = 0; i < size; i++) {
+//			sb.append(items[i]);
+//			if (i != size - 1) {
+//				sb.append(", ");
+//				// StringBuilder is appending each element and separating
+//				// using a delimiter if the item is not the last item.
+//			}
+//		}
+//		return sb.toString();
+//	}
+//	// only necessary if we need to print objects	
 
 	@Override
 	public boolean add(T item) {
@@ -43,7 +44,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(int index) throws IndexOutOfBoundsException {
-		if (index >= size || index < 0) {
+		if (index > size || index < 0) {
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
 		}
 
@@ -73,7 +74,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 	@Override
 	public T remove(int index) throws IndexOutOfBoundsException {
 
-		if (index < 0 || index >= getSize()) {
+		if (index < 0 || index > getSize()) {
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
 		}
 

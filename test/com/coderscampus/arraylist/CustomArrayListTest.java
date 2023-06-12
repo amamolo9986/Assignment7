@@ -1,7 +1,7 @@
 package com.coderscampus.arraylist;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 class CustomArrayListTest {
@@ -77,6 +77,15 @@ class CustomArrayListTest {
 
 		assertEquals("Third", item);
 	}
+	
+	@Test
+	void should_get_null_element() {  //Weird one
+		CustomList<Integer> sut = new CustomArrayList<>();
+		
+		assertThrows(IndexOutOfBoundsException.class, () -> {
+	        sut.get(1);
+	    });
+	}
 
 	// --------------------------------- //
 	@Test
@@ -116,6 +125,19 @@ class CustomArrayListTest {
 		assertEquals("World", sut.get(1));
 		assertEquals(2, sut.getSize());
 	}
+	
+	@Test
+	void should_throw_exception() {  //Weird one
+		CustomList<Integer> sut = new CustomArrayList<>();
+		
+		for (int i = 1; i <= 5; i++) {
+			sut.add(i);
+		}
+		
+		assertThrows(IndexOutOfBoundsException.class, () -> {
+	        sut.add(sut.getSize() + 1, 6);
+	    });
+	}
 
 	// --------------------------------- //
 	@Test
@@ -147,6 +169,19 @@ class CustomArrayListTest {
 	    assertEquals("Fourth", sut.get(2));
 	    assertEquals("Second", removedItem);
 	    assertEquals(3, sut.getSize());
+	}
+	
+	@Test
+	void should_try_to_remove_null_item() { //Weird one
+		CustomList<Integer> sut = new CustomArrayList<>();
+		
+		for (int i = 1; i <= 5; i++) {
+			sut.add(i);
+		}
+		
+		assertThrows(IndexOutOfBoundsException.class, () -> {
+	        sut.remove(6);
+	    });
 	}
 
 }
