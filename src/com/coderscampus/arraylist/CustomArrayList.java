@@ -25,7 +25,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 //		}
 //		return sb.toString();
 //	}
-//	// only necessary if we need to print objects	
+//	// only necessary if we need to print 	
 
 	@Override
 	public boolean add(T item) {
