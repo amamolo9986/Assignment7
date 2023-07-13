@@ -151,6 +151,7 @@ class CustomArrayListTest {
 
 		assertEquals(1, remove);
 		assertEquals(4, sut.getSize());
+		assertEquals(null, sut.get(4));
 	}
 	
 	@Test

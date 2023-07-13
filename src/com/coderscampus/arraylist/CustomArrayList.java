@@ -82,7 +82,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 		for (int i = index; i < getSize() - 1; i++) { //starts at index and ends at second to last index
 			items[i] = items[i + 1]; //assigns the value of next element to current 
 		}
-		size--; //decrement size 
+		items[--size] = null; //decrement size and set removed value to null
 		return item;
 
 	}
