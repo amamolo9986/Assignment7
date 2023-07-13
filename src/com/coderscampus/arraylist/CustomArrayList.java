@@ -12,20 +12,20 @@ public class CustomArrayList<T> implements CustomList<T> {
 		items = Arrays.copyOf(items, items.length * GROWTH_FACTOR);
 	}
 
-//	@Override
-//	public String toString() {
-//		StringBuilder sb = new StringBuilder();
-//		for (int i = 0; i < size; i++) {
-//			sb.append(items[i]);
-//			if (i != size - 1) {
-//				sb.append(", ");
-//				// StringBuilder is appending each element and separating
-//				// using a delimiter if the item is not the last item.
-//			}
-//		}
-//		return sb.toString();
-//	}
-//	// only necessary if we need to print 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < size; i++) {
+			sb.append(items[i]);
+			if (i != size - 1) {
+				sb.append(", ");
+				// StringBuilder is appending each element and separating
+				// using a delimiter if the item is not the last item.
+			}
+		}
+		return sb.toString();
+	}
+	// only necessary if we need to print 	
 
 	@Override
 	public boolean add(T item) {
@@ -78,11 +78,11 @@ public class CustomArrayList<T> implements CustomList<T> {
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
 		}
 
-		T item = get(index);
-		for (int i = index; i < getSize() - 1; i++) {
-			items[i] = items[i + 1];
+		T item = get(index); //retrieves item at index
+		for (int i = index; i < getSize() - 1; i++) { //starts at index and ends at second to last index
+			items[i] = items[i + 1]; //assigns the value of next element to current 
 		}
-		size--;
+		size--; //decrement size 
 		return item;
 
 	}
